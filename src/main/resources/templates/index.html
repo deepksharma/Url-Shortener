@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>URL Shortener</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #89f7fe, #66a6ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 400px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #66a6ff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5586e2;
+        }
+
+        .message {
+            margin: 15px 0;
+            font-weight: bold;
+            color: #ff4d4d;
+        }
+
+        .short-url {
+            margin-top: 10px;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .short-url a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background-color: #66a6ff;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: #5586e2;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>URL Shortener</h1>
+
+    <form action="/shorten" method="post">
+        <input type="text" name="longUrl" placeholder="Enter long URL" required>
+        <button type="submit">Shorten</button>
+    </form>
+
+    <!-- Message -->
+    <div th:if="${message}" class="message">
+        <p th:text="${message}"></p>
+    </div>
+
+    <!-- Short URL -->
+    <div th:if="${shortUrl}" class="short-url">
+        <a th:href="${shortUrl}" th:text="${shortUrl}" target="_blank"></a>
+        <button class="copy-btn" onclick="copyShortUrl()">Copy</button>
+    </div>
+</div>
+
+<script>
+    function copyShortUrl() {
+        const urlElement = document.querySelector('.short-url a');
+        const url = urlElement.textContent;
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Short URL copied to clipboard!');
+        });
+    }
+</script>
+</body>
+</html>
