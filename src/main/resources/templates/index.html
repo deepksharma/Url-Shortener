@@ -111,6 +111,12 @@
         <a th:href="${shortUrl}" th:text="${shortUrl}" target="_blank"></a>
         <button class="copy-btn" onclick="copyShortUrl()">Copy</button>
     </div>
+
+    <div th:if="${clickCount != null && shortUrl != null}" style="margin-top:10px;">
+        <p>Click Count: <span th:text="${clickCount}"></span></p>
+    </div>
+
+
 </div>
 
 <script>

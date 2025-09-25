@@ -31,6 +31,11 @@ public class UserController {
         }else{
             model.addAttribute("message" , "New short URL is created sucessfully");
         }
+        // Adding click count to model
+        urlService.getUrlMappingByShortCode(shortCode).ifPresent(mapping ->
+                model.addAttribute("clickCount", mapping.getClickCount())
+        );
+
         return "index";
     }
 

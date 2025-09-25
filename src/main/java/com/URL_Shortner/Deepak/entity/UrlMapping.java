@@ -23,5 +23,15 @@ public class UrlMapping {
     @Column(unique = true , nullable = false)
     private String shortCode;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Builder.Default
+    private Long clickCount = 0L;
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt ;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
 }

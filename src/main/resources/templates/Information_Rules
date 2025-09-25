@@ -1,0 +1,1 @@
+//1. Used @Builder design pattern  -> This avoids writing constructors manually or calling multiple setters.

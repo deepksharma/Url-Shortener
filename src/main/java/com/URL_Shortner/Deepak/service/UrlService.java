@@ -38,7 +38,15 @@ public class UrlService {
 
     public Optional<String> getLongUrl(String shortCode) {
         return urlRepository.findByShortCode(shortCode)
-                .map(UrlMapping::getLongUrl);
+                .map(mapping -> {
+                    mapping.setClickCount((mapping.getClickCount() == null ? 0L : mapping.getClickCount())+1);
+                    urlRepository.save(mapping);
+                    return mapping.getLongUrl();
+                });
+    }
+
+    public Optional<UrlMapping> getUrlMappingByShortCode(String shortCode) {
+    return urlRepository.findByShortCode(shortCode);
     }
 
     public boolean isAlreadyStored(String longUrl) {
